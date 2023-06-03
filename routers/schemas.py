@@ -43,6 +43,14 @@ class CommentDisplay(BaseModel):
         orm_mode = True
 
 
+class LikeDisplay(BaseModel):
+    id: int
+    username: str
+
+    class Config():
+        orm_mode = True
+
+
 class PostBase(BaseModel):
     title: str
     content: str
@@ -51,12 +59,14 @@ class PostBase(BaseModel):
 
 
 class PostDisplay(BaseModel):
+    id: int
     title: str
     content: str
     img_url: str
     publish_date: datetime
     user: User
     comments: List[CommentDisplay]
+    likes: List[LikeDisplay]
 
     class Config():
         orm_mode = True
@@ -66,6 +76,11 @@ class CommentBase(BaseModel):
     username: str
     text: str
     post_id: int
+
+
+class LikeBase(BaseModel):
+    username: str
+    post_id: str
 
 
 # ================================================

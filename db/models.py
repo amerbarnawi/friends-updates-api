@@ -27,6 +27,7 @@ class DbPost(Base):
     creater_id = Column(Integer, ForeignKey('user.id'))
     user = relationship('DbUser', back_populates='items')
     comments = relationship('DbComment', back_populates='post')
+    likes = relationship('DbLike', back_populates='post')
 
 # =================================================
 # Comment model
@@ -40,3 +41,14 @@ class DbComment(Base):
     timestamp = Column(DateTime)
     post_id = Column(Integer, ForeignKey('post.id'))
     post = relationship('DbPost', back_populates='comments')
+
+# =================================================
+# Like model
+
+
+class DbLike(Base):
+    __tablename__ = "like"
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String)
+    post_id = Column(Integer, ForeignKey('post.id'))
+    post = relationship('DbPost', back_populates='likes')
