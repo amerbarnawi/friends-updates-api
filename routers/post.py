@@ -30,7 +30,7 @@ def get_posts(db: Session = Depends(get_db)):
 
 
 @router.post('/image')
-def upload_image(image: UploadFile = File(...)):
+def upload_image(image: UploadFile = File(...), current_user: UserAuth = Depends(get_current_user)):
     letters = string.ascii_letters
     random_string = ''.join(random.choice(letters) for i in range(3))
     new = f'_{random_string}.'
@@ -41,3 +41,8 @@ def upload_image(image: UploadFile = File(...)):
         shutil.copyfileobj(image.file, buffer)
 
     return {'filename': path}
+
+
+@router.delete('/{id}')
+def delete(id: int, db: Session = Depends(get_db), current_user: UserAuth = Depends(get_current_user)):
+    return db_post.delete_post(db, id, current_user.id)
