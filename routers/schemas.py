@@ -1,3 +1,4 @@
+import email
 from pydantic import BaseModel
 from datetime import datetime
 
@@ -48,3 +49,13 @@ class PostDisplay(BaseModel):
 
     class Config():
         orm_mode = True
+
+# ================================================
+# AUTHENTICATION
+# ================================================
+
+
+class UserAuth(BaseModel):
+    id: int
+    username: str
+    email: str

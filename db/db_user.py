@@ -15,3 +15,11 @@ def create_user(db: Session, request: UserBase):
     db.commit()
     db.refresh(new_user)
     return new_user
+
+
+def get_user_by_email(db: Session, username: str):
+    user = db.query(DbUser).filter(DbUser.username == username).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'User with user name {username} not found!')
+    return user

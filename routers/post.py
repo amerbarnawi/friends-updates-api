@@ -2,7 +2,8 @@ import random
 from fastapi import APIRouter, Depends, UploadFile, status, File
 from fastapi.exceptions import HTTPException
 from sqlalchemy.orm import Session
-from routers.schemas import PostBase, PostDisplay
+from auth.oauth2 import get_current_user
+from routers.schemas import PostBase, PostDisplay, UserAuth
 from db.database import get_db
 from db import db_post
 from typing import List
@@ -18,7 +19,7 @@ router = APIRouter(
 
 
 @router.post('', response_model=PostDisplay)
-def create_post(request: PostBase, db: Session = Depends(get_db)):
+def create_post(request: PostBase, db: Session = Depends(get_db), current_user: UserAuth = Depends(get_current_user)):
     new_post = db_post.create_post(db, request)
     return new_post
 
