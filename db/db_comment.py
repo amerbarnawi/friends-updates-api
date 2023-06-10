@@ -33,4 +33,4 @@ def delete_comment(db: Session, comment_id, username):
 
     db.delete(comment)
     db.commit()
-    return 'Comment has been deleted successfully!'
+    return {"details": 'Comment has been deleted successfully!'}

@@ -29,7 +29,7 @@ def get_posts(db: Session = Depends(get_db)):
     return db_post.get_all_posts(db)
 
 
-@router.post('/image')
+@router.post('/upload-image')
 def upload_image(image: UploadFile = File(...), current_user: UserAuth = Depends(get_current_user)):
     letters = string.ascii_letters
     random_string = ''.join(random.choice(letters) for i in range(3))

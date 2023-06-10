@@ -29,4 +29,4 @@ def delete_like(db: Session, like_id: int):
     like = db.query(DbLike).filter(DbLike.id == like_id).first()
     db.delete(like)
     db.commit()
-    return 'Like is deleted!'
+    return {"details": 'Like is deleted!'}

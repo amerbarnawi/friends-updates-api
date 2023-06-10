@@ -33,4 +33,4 @@ def delete_post(db: Session, id: int, user_id: int):
                             detail='Only post creater can delete post.')
     db.delete(post)
     db.commit()
-    return 'Your post has been deleted successfully!'
+    return {"details": 'Your post has been deleted successfully!'}
